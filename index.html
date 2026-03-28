@@ -6,6 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>マーケティング・シミュレーター</title>
     <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background-color: #f4f4f4; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #E60012; }
+        h1 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #666; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
+        .result { margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 10px; text-align: center; }
+        .result span { font-size: 1.5rem; font-weight: bold; color: #E60012; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>流入数シミュレーター</h1>
+    
+    <div class="input-group">
+        <label>広告予算 (円)</label>
+        <input type="number" id="budget" value="100000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>予備費 (円)</label>
+        <input type="number" id="extra" value="10000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>クリック単価 / CPC (円)</label>
+        <input type="number" id="cpc" value="50" oninput="calculate()">
+    </div>
+
+    <div class="result" style="background: #eefbff; border-top: 3px solid #007bff;">
+        <p>合計予算 (Total)</p>
+        <span id="total_budget">0</span> 円
+    </div>
+
+    <div class="result">
+        <p>予想流入数 (Click)</p>
+        <span id="clicks">0</span> 人
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        // 【修正ポイント1】値を数字として取り出す
+        const budget = Number(document.getElementById('budget').value);
+        const extra = Number(document.getElementById('extra').value);
+        const cpc = Number(document.getElementById('cpc').value);
+
+        // 【修正ポイント2】正しい計算
+        const total = budget + extra;
+        
+        let clicks = 0;
+        if (cpc > 0) {
+            clicks = Math.floor(total / cpc);
+        }
+
+        // 画面に表示
+        document.getElementById('total_budget').innerText = total.toLocaleString();
+        document.getElementById('clicks').innerText = clicks.toLocaleString();
+    }
+
+    // 最初の一回を実行して初期値を表示させる
+    calculate();
+</script>
+
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マーケティング・シミュレーター</title>
+    <style>
         /* CSS: 見た目を整える（dポイント風の配色を意識） */
         body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background-color: #f4f4f4; }
         .card { background: white; padding: 30px; border-radius: 15px; shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #E60012; }
@@ -97,7 +172,9 @@
 </script>
 
 </body>
-</html>
+</html> -->
+
+
 
 <!-- このコードで学べること -->
 <!-- １　HTML (inputタグ): ユーザーが数字を入力する場所を作っています。

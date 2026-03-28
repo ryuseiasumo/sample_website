@@ -36,23 +36,46 @@
         <p>予想流入数 (Click)</p>
         <span id="clicks">2,000</span> 人
     </div>
+
+    <div class="input-group">
+    <label>予備費 (円)</label>
+    <input type="number" id="extra" value="10000" oninput="calculate()">
+    </div>
+
+    <div class="result" style="background: #eefbff; border-top: 3px solid #007bff;">
+        <p>合計予算 (Total)</p>
+        <span id="total_budget">0</span> 円
+    </div>
 </div>
 
+
+
+    
 <script>
     // JavaScript: 計算のロジック
     function calculate() {
-    // Number() で囲って数字に変換する
-    const budget = Number(document.getElementById('budget').value);
-    const extra = Number(document.getElementById('extra').value);
-    const cpc = Number(document.getElementById('cpc').value);
+    const budget = document.getElementById('budget').value; // "100000"
+    const extra = document.getElementById('extra').value;   // "10000"
 
-    // これで正しく計算される
-    const total = budget + extra;
-    const clicks = Math.floor(total / cpc);
+    // 足し算をしてみる（罠にハマる！）
+    const total = budget + extra; 
 
-    // 画面に反映
     document.getElementById('total_budget').innerText = total.toLocaleString();
-    document.getElementById('clicks').innerText = clicks.toLocaleString();
+    }
+    
+    // function calculate() {
+    // // Number() で囲って数字に変換する
+    // const budget = Number(document.getElementById('budget').value);
+    // const extra = Number(document.getElementById('extra').value);
+    // const cpc = Number(document.getElementById('cpc').value);
+
+    // // これで正しく計算される
+    // const total = budget + extra;
+    // const clicks = Math.floor(total / cpc);
+
+    // // 画面に反映
+    // document.getElementById('total_budget').innerText = total.toLocaleString();
+    // document.getElementById('clicks').innerText = clicks.toLocaleString();
     }
     
     

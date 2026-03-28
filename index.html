@@ -1,5 +1,5 @@
 <!-- 20260328: geminiによる最初のサンプルコード -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -47,38 +47,15 @@
     </div>
 </div>
 
+
 <script>
-function calculate() {
-    // 【失敗ポイント】Number() を使わずに取り出す
-    const budget = document.getElementById('budget').value; // "100000" (文字)
-    const extra = document.getElementById('extra').value;   // "10000" (文字)
-    const cpc = document.getElementById('cpc').value;       // "50" (文字)
-
-    // 【失敗の結果1】足し算が「文字の連結」になる
-    const total = budget + extra; 
-    // 期待: 110,000 / 実際: "10000010000"
-
-    // 【失敗の結果2】割り算は「暗黙の型変換」で計算できてしまう（これがややこしい！）
-    let clicks = 0;
-    if (cpc > 0) {
-        clicks = Math.floor(total / cpc); 
-        // "10000010000" / 50 = 200,000,200 (とんでもない数に！)
-    }
-
-    document.getElementById('total_budget').innerText = total;
-    document.getElementById('clicks').innerText = clicks;
-}
-calculate();
-</script>
-    
-<!-- <script>
     function calculate() {
-        // 【修正ポイント1】値を数字として取り出す
+        // 値を数字として取り出す
         const budget = Number(document.getElementById('budget').value);
         const extra = Number(document.getElementById('extra').value);
         const cpc = Number(document.getElementById('cpc').value);
 
-        // 【修正ポイント2】正しい計算
+        // 足し算（Numberで数字として取り出さないと、文字列の連結になってしまう）
         const total = budget + extra;
         
         let clicks = 0;
@@ -93,11 +70,142 @@ calculate();
 
     // 最初の一回を実行して初期値を表示させる
     calculate();
-</script> -->
+</script>
 
 </body>
 </html>
+ -->
 
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マーケティング・シミュレーター</title>
+    
+    <style>
+        /* 画面全体のレイアウト：中央寄せにして背景を薄いグレーに */
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
+        }
+
+        /* カード型の枠組み：白背景、角丸、影、そしてブランドカラーの赤線を上部に */
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            border-top: 5px solid #E60012; /* dポイント風の赤 */
+        }
+
+        /* 各入力項目の間隔を調整 */
+        .input-group { margin-bottom: 15px; }
+
+        /* ラベル（項目名）の文字を小さくしてグレーにする */
+        label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #666; }
+
+        /* 入力フォームの装飾：枠線や余白、文字サイズを整える */
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 1rem; 
+        }
+
+        /* 結果表示エリア：背景を薄いピンクにして目立たせる */
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #fff5f5; 
+            border-radius: 10px; 
+            text-align: center; 
+        }
+
+        /* 結果の数字：大きく、太く、赤くして強調する */
+        .result span { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: #E60012; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>流入数シミュレーター</h1>
+    
+    <div class="input-group">
+        <label>広告予算 (円)</label>
+        <input type="number" id="budget" value="100000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>予備費 (円)</label>
+        <input type="number" id="extra" value="10000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>クリック単価 / CPC (円)</label>
+        <input type="number" id="cpc" value="50" oninput="calculate()">
+    </div>
+
+    <div class="result" style="background: #eefbff; border-top: 3px solid #007bff;">
+        <p>合計予算 (Total)</p>
+        <span id="total_budget">0</span> 円
+    </div>
+
+    <div class="result">
+        <p>予想流入数 (Click)</p>
+        <span id="clicks">0</span> 人
+    </div>
+</div>
+
+
+<script>
+    /**
+     * calculate関数：入力された値を元に計算を行い、画面を更新する
+     */
+    function calculate() {
+        // 1. HTMLから値を取得する
+        // .valueで取得した値は「文字列」なので、Number() で「数字」に変換するのが鉄則！
+        const budget = Number(document.getElementById('budget').value);
+        const extra = Number(document.getElementById('extra').value);
+        const cpc = Number(document.getElementById('cpc').value);
+
+        // 2. 数値計算を行う
+        // 予算と予備費を足して「合計予算」を出す
+        const total = budget + extra;
+        
+        // 3. 流入数を計算する
+        let clicks = 0;
+        if (cpc > 0) {
+            // 合計予算を単価で割り、Math.floorで小数点以下を切り捨てる
+            clicks = Math.floor(total / cpc);
+        }
+
+        // 4. 計算結果をHTMLに書き戻して画面を更新する
+        // .toLocaleString() を使うと「1,000」のようにカンマ区切りになって見やすくなる
+        document.getElementById('total_budget').innerText = total.toLocaleString();
+        document.getElementById('clicks').innerText = clicks.toLocaleString();
+    }
+
+    // ページを読み込んだ瞬間に一度だけ実行し、初期値を表示させる
+    calculate();
+</script>
+
+</body>
+</html>
 
 <!-- このコードで学べること -->
 <!-- １　HTML (inputタグ): ユーザーが数字を入力する場所を作っています。

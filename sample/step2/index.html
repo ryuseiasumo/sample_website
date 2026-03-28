@@ -49,10 +49,12 @@
         }
         
         /* スクロール計測用の大きな余白 */
+        /* 修正後：上下に100pxの余白を強制し、高さは中身に合わせる */
         .section { 
-            height: 600px; 
+            min-height: 80vh; /* 画面の8割の高さを確保しつつ、伸び縮み可能に */
+            padding: 100px 0; /* 上下の余白を「100px」で統一 */
+            box-sizing: border-box; /* パディングを含めたサイズ計算にする */
             border-bottom: 1px dashed #555; 
-            padding-top: 80px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,10 +69,11 @@
             justify-content: center;
             width: 100%;
         }
-        
+
         .image-gallery img {
             width: 45%; /* 2枚並び */
-            max-width: 400px;
+            aspect-ratio: 3 / 2; /* 横3：縦2の比率に固定 */
+            object-fit: cover;   /* 枠に合わせて画像を綺麗にトリミング */
             border-radius: 8px; /* 角を少し丸く */
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.3s ease; /* アニメーション */
@@ -142,7 +145,7 @@
         </div>
 
 
-        <div class="section" id="python-area">
+        <div class="section" id="python-area" style="border-bottom: none;">
             <h2>AIおすすめ診断</h2>
             <p>Python(Streamlit)を呼び出して、あなたにぴったりの一杯を診断します。</p>
             <button class="btn" onclick="callPython()">AI診断を起動</button>
@@ -182,5 +185,6 @@
 
 「技術の使い分け」:
 「見た目はHTML/CSS、複雑なロジックはPython（Streamlit）」という、サービス supervisor が知っておくべきシステム構成の全体像が見えてきます。 -->
+
 
 

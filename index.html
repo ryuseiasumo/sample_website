@@ -48,6 +48,30 @@
 </div>
 
 <script>
+function calculate() {
+    // 【失敗ポイント】Number() を使わずに取り出す
+    const budget = document.getElementById('budget').value; // "100000" (文字)
+    const extra = document.getElementById('extra').value;   // "10000" (文字)
+    const cpc = document.getElementById('cpc').value;       // "50" (文字)
+
+    // 【失敗の結果1】足し算が「文字の連結」になる
+    const total = budget + extra; 
+    // 期待: 110,000 / 実際: "10000010000"
+
+    // 【失敗の結果2】割り算は「暗黙の型変換」で計算できてしまう（これがややこしい！）
+    let clicks = 0;
+    if (cpc > 0) {
+        clicks = Math.floor(total / cpc); 
+        // "10000010000" / 50 = 200,000,200 (とんでもない数に！)
+    }
+
+    document.getElementById('total_budget').innerText = total;
+    document.getElementById('clicks').innerText = clicks;
+}
+calculate();
+</script>
+    
+<!-- <script>
     function calculate() {
         // 【修正ポイント1】値を数字として取り出す
         const budget = Number(document.getElementById('budget').value);
@@ -69,111 +93,10 @@
 
     // 最初の一回を実行して初期値を表示させる
     calculate();
-</script>
+</script> -->
 
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マーケティング・シミュレーター</title>
-    <style>
-        /* CSS: 見た目を整える（dポイント風の配色を意識） */
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background-color: #f4f4f4; }
-        .card { background: white; padding: 30px; border-radius: 15px; shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #E60012; }
-        h1 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #666; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
-        .result { margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 10px; text-align: center; }
-        .result span { font-size: 1.5rem; font-weight: bold; color: #E60012; }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <h1>流入数シミュレーター</h1>
-    
-    <div class="input-group">
-        <label>広告予算 (円)</label>
-        <input type="number" id="budget" value="100000" oninput="calculate()">
-    </div>
-
-    <div class="input-group">
-        <label>クリック単価 / CPC (円)</label>
-        <input type="number" id="cpc" value="50" oninput="calculate()">
-    </div>
-
-    <div class="result">
-        <p>予想流入数 (Click)</p>
-        <span id="clicks">2,000</span> 人
-    </div>
-
-    <div class="input-group">
-    <label>予備費 (円)</label>
-    <input type="number" id="extra" value="10000" oninput="calculate()">
-    </div>
-
-    <div class="result" style="background: #eefbff; border-top: 3px solid #007bff;">
-        <p>合計予算 (Total)</p>
-        <span id="total_budget">0</span> 円
-    </div>
-</div>
-
-
-
-    
-<script>
-    // JavaScript: 計算のロジック
-    function calculate() {
-    const budget = document.getElementById('budget').value; // "100000"
-    const extra = document.getElementById('extra').value;   // "10000"
-
-    // 足し算をしてみる（罠にハマる！）
-    const total = budget + extra; 
-
-    document.getElementById('total_budget').innerText = total.toLocaleString();
-    }
-    
-    // function calculate() {
-    // // Number() で囲って数字に変換する
-    // const budget = Number(document.getElementById('budget').value);
-    // const extra = Number(document.getElementById('extra').value);
-    // const cpc = Number(document.getElementById('cpc').value);
-
-    // // これで正しく計算される
-    // const total = budget + extra;
-    // const clicks = Math.floor(total / cpc);
-
-    // // 画面に反映
-    // document.getElementById('total_budget').innerText = total.toLocaleString();
-    // document.getElementById('clicks').innerText = clicks.toLocaleString();
-    }
-    
-    
-    // function calculate() {
-    //     // 入力値を取得
-    //     const budget = document.getElementById('budget').value;
-    //     const cpc = document.getElementById('cpc').value;
-
-    //     // 計算（予算 ÷ 単価）
-    //     let result = 0;
-    //     if (cpc > 0) {
-    //         result = Math.floor(budget / cpc);
-    //     }
-
-    //     // 画面に表示（カンマ区切りにする）
-    //     document.getElementById('clicks').innerText = result.toLocaleString();
-    // }
-
-</script>
-
-</body>
-</html> -->
-
 
 
 <!-- このコードで学べること -->

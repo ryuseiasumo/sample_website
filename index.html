@@ -1,18 +1,68 @@
-<!-- シンプルなサンプルコード -->
-<!-- <!DOCTYPE html>
+<!-- 20260328: geminiによる最初のサンプルコード -->
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>My Sample Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マーケティング・シミュレーター</title>
+    <style>
+        /* CSS: 見た目を整える（dポイント風の配色を意識） */
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background-color: #f4f4f4; }
+        .card { background: white; padding: 30px; border-radius: 15px; shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #E60012; }
+        h1 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #666; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
+        .result { margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 10px; text-align: center; }
+        .result span { font-size: 1.5rem; font-weight: bold; color: #E60012; }
+    </style>
 </head>
 <body>
-    <h1>こんにちは、GitHub Pages！</h1>
-    <p>これは僕が初めてデプロイしたWebサイトです。</p>
-</body>
-</html> -->
 
-<!-- サンプルコード -->
-<!DOCTYPE html>
+<div class="card">
+    <h1>流入数シミュレーター</h1>
+    
+    <div class="input-group">
+        <label>広告予算 (円)</label>
+        <input type="number" id="budget" value="100000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>クリック単価 / CPC (円)</label>
+        <input type="number" id="cpc" value="50" oninput="calculate()">
+    </div>
+
+    <div class="result">
+        <p>予想流入数 (Click)</p>
+        <span id="clicks">2,000</span> 人
+    </div>
+</div>
+
+<script>
+    // JavaScript: 計算のロジック
+    function calculate() {
+        // 入力値を取得
+        const budget = document.getElementById('budget').value;
+        const cpc = document.getElementById('cpc').value;
+
+        // 計算（予算 ÷ 単価）
+        let result = 0;
+        if (cpc > 0) {
+            result = Math.floor(budget / cpc);
+        }
+
+        // 画面に表示（カンマ区切りにする）
+        document.getElementById('clicks').innerText = result.toLocaleString();
+    }
+</script>
+
+</body>
+</html>
+
+
+
+<!-- サイト上から拾ってきたサンプルコード -->
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -101,4 +151,4 @@
     </div>
   </footer>
 </body>
-</html>
+</html> -->

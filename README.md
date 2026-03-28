@@ -15,4 +15,6 @@
 
 ⑤ html、css、javascriptを微修正しながら、動作学習
 
+⑥ セキュリティ周り
+
 <a href="https://gemini.google.com/app/3754aefec70508e3?hl=ja" target="_blank" rel="noopener noreferrer">Gemini</a>

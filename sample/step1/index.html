@@ -1,0 +1,153 @@
+<!-- 20260328: geminiによる最初のサンプルコード -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マーケティング・シミュレーター</title>
+    
+    <style>
+        /* 画面全体のレイアウト：中央寄せにして背景を薄いグレーに */
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
+        }
+
+        /* カード型の枠組み：白背景、角丸、影、そしてブランドカラーの赤線を上部に */
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            border-top: 5px solid #E60012; /* dポイント風の赤 */
+        }
+
+        /* 各入力項目の間隔を調整 */
+        .input-group { margin-bottom: 15px; }
+
+        /* ラベル（項目名）の文字を小さくしてグレーにする */
+        label { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #666; }
+
+        /* 入力フォームの装飾：枠線や余白、文字サイズを整える */
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 1rem; 
+        }
+
+        /* 結果表示エリア：背景を薄いピンクにして目立たせる */
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #fff5f5; 
+            border-radius: 10px; 
+            text-align: center; 
+        }
+
+        /* 結果の数字：大きく、太く、赤くして強調する */
+        .result span { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: #E60012; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>流入数シミュレーター</h1>
+    
+    <div class="input-group">
+        <label>広告予算 (円)</label>
+        <input type="number" id="budget" value="100000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>予備費 (円)</label>
+        <input type="number" id="extra" value="10000" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>クリック単価 / CPC (円)</label>
+        <input type="number" id="cpc" value="50" oninput="calculate()">
+    </div>
+
+    <div class="result" style="background: #eefbff; border-top: 3px solid #007bff;">
+        <p>合計予算 (Total)</p>
+        <span id="total_budget">0</span> 円
+    </div>
+
+    <div class="result">
+        <p>予想流入数 (Click)</p>
+        <span id="clicks">0</span> 人
+    </div>
+</div>
+
+
+<script>
+    /**
+     * calculate関数：入力された値を元に計算を行い、画面を更新する
+     */
+    function calculate() {
+        // 1. HTMLから値を取得する
+        // .valueで取得した値は「文字列」なので、Number() で「数字」に変換するのが鉄則！
+        const budget = Number(document.getElementById('budget').value);
+        const extra = Number(document.getElementById('extra').value);
+        const cpc = Number(document.getElementById('cpc').value);
+
+        // 2. 数値計算を行う
+        // 予算と予備費を足して「合計予算」を出す
+        const total = budget + extra;
+        
+        // 3. 流入数を計算する
+        let clicks = 0;
+        if (cpc > 0) {
+            // 合計予算を単価で割り、Math.floorで小数点以下を切り捨てる
+            clicks = Math.floor(total / cpc);
+        }
+
+        // 4. 計算結果をHTMLに書き戻して画面を更新する
+        // .toLocaleString() を使うと「1,000」のようにカンマ区切りになって見やすくなる
+        document.getElementById('total_budget').innerText = total.toLocaleString();
+        document.getElementById('clicks').innerText = clicks.toLocaleString();
+    }
+
+    // ページを読み込んだ瞬間に一度だけ実行し、初期値を表示させる
+    calculate();
+</script>
+
+</body>
+</html>
+
+
+<!-- １　HTML (inputタグ): ユーザーが数字を入力する場所を作っています。
+２　CSS (スタイリング): border-top に赤色を入れたり、カード型のデザインにして「ツールっぽさ」を出しています。
+３　JavaScript (oninput): 入力欄の数字が変わるたびに calculate() という関数（計算処理）が走り、ページをリロードしなくてもリアルタイムで数字が変わる 動きを実現しています。 -->
+
+
+<!-- 【このコードで学べること：Web制作の基礎】 -->
+<!-- ＜それぞれの役割＞
+１：HTML（構造）：サイトの「骨組み」。入力窓口や表示場所を作る。
+２：CSS（装飾）：サイトの「見た目」。色や影をつけて使いやすくする。
+３：avaScript（頭脳）：計算や中身のリアルタイムな書き換えを行う。
+
+＜HTML：ユーザーとの接点＞
+１：inputタグ：数字専用の窓口を作り、スマホで数字キーを出させる。
+２：id属性：JavaScriptが特定の場所を指名するための「背番号」。
+
+＜CSS：ユーザー体験（UX）の向上＞
+border-top / box-shadow：色や影を使い、直感的に「ツールだ」と認識させる。
+
+＜JavaScript：リアルタイムな動き＞
+１：oninput：入力のたびに計算を走らせる「イベント駆動」の仕組み。
+２：Number()：届いた「文字」を「数字」に変換する重要性（型変換）。
+３：部分更新：ページをリロードせず、必要な数字だけを瞬時に書き換える。 -->
+

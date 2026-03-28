@@ -5,7 +5,7 @@
 以下を無料で勉強する用
 
 ① Webページの作成（サーバの立ち上げ）
-[参考サイト](https://prog-8.com/docs/github-pages)
+[参考サイト](https://prog-8.com/docs/github-pages){:target="_blank"}
 
 ② html、css、javascriptでの基礎コーディング
 
@@ -16,4 +16,4 @@
 ⑤ html、css、javascriptを微修正しながら、動作学習
 
 
-[gemini](https://gemini.google.com/app/3754aefec70508e3?hl=ja)
+[gemini](https://gemini.google.com/app/3754aefec70508e3?hl=ja){:target="_blank"}

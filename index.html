@@ -41,23 +41,47 @@
 <script>
     // JavaScript: 計算のロジック
     function calculate() {
-        // 入力値を取得
-        const budget = document.getElementById('budget').value;
-        const cpc = document.getElementById('cpc').value;
+    // Number() で囲って数字に変換する
+    const budget = Number(document.getElementById('budget').value);
+    const extra = Number(document.getElementById('extra').value);
+    const cpc = Number(document.getElementById('cpc').value);
 
-        // 計算（予算 ÷ 単価）
-        let result = 0;
-        if (cpc > 0) {
-            result = Math.floor(budget / cpc);
-        }
+    // これで正しく計算される
+    const total = budget + extra;
+    const clicks = Math.floor(total / cpc);
 
-        // 画面に表示（カンマ区切りにする）
-        document.getElementById('clicks').innerText = result.toLocaleString();
+    // 画面に反映
+    document.getElementById('total_budget').innerText = total.toLocaleString();
+    document.getElementById('clicks').innerText = clicks.toLocaleString();
     }
+    
+    
+    // function calculate() {
+    //     // 入力値を取得
+    //     const budget = document.getElementById('budget').value;
+    //     const cpc = document.getElementById('cpc').value;
+
+    //     // 計算（予算 ÷ 単価）
+    //     let result = 0;
+    //     if (cpc > 0) {
+    //         result = Math.floor(budget / cpc);
+    //     }
+
+    //     // 画面に表示（カンマ区切りにする）
+    //     document.getElementById('clicks').innerText = result.toLocaleString();
+    // }
+
 </script>
 
 </body>
 </html>
+
+<!-- このコードで学べること -->
+<!-- １　HTML (inputタグ): ユーザーが数字を入力する場所を作っています。
+２　CSS (スタイリング): border-top に赤色を入れたり、カード型のデザインにして「ツールっぽさ」を出しています。
+３　JavaScript (oninput): 入力欄の数字が変わるたびに calculate() という関数（計算処理）が走り、ページをリロードしなくてもリアルタイムで数字が変わる 動きを実現しています。 -->
+
+
 
 
 

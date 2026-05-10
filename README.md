@@ -1,6 +1,5 @@
 # sample_website
 
-
 【自分用メモ】
 以下を無料で勉強する用
 
@@ -17,4 +16,4 @@
 
 ⑥ セキュリティ周り
 
-<a href="https://gemini.google.com/app/3754aefec70508e3?hl=ja" target="_blank" rel="noopener noreferrer">Gemini</a>
+<a href="https://gemini.google.com/share/16aa3b9d0c9c" target="_blank" rel="noopener noreferrer">Gemini</a>
